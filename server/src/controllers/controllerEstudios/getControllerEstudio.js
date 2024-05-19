@@ -61,7 +61,10 @@ const getControllerEstudios = async (
 
     const estudios = await Estudios.find(
       Object.keys(whereConditions).length > 0 ? whereConditions : {}
-    );
+    )
+      .populate("idUsuario")
+      .populate("proyectos")
+      .populate("observaciones");
     return estudios;
   } catch (error) {
     return error;

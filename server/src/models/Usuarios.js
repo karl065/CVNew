@@ -19,7 +19,7 @@ const usuarioSchema = new mongoose.Schema({
   rol: {
     type: String,
     enum: ["Personal", "Invitado"],
-    require: true,
+    required: true,
   },
   habilitado: {
     type: Boolean,
@@ -31,6 +31,30 @@ const usuarioSchema = new mongoose.Schema({
     default: false,
     required: true,
   },
+  estudios: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Estudios",
+    },
+  ],
+  experiencias: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Experiencia",
+    },
+  ],
+  proyectos: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Proyectos",
+    },
+  ],
+  observaciones: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Observaciones",
+    },
+  ],
 });
 
 const UsuarioModel = connection.model("Usuarios", usuarioSchema);

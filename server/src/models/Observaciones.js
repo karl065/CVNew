@@ -3,14 +3,29 @@ import connection from "../config/DB";
 
 const observacionesSchema = new mongoose.Schema({
   nombre: String,
-  cargo: String,
-  descripcion: String,
-  fechaInicio: Date,
-  fechaFin: Date,
-  finalizado: {
+  email: String,
+  celular: String,
+  observacion: String,
+  evidencia: [String],
+  idProyecto: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Proyectos",
+  },
+  idEstudio: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Estudios",
+  },
+  idExperiencia: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Experiencia",
+  },
+  idUsuario: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Usuarios",
+  },
+  vista: {
     type: Boolean,
     default: false,
-    required: true,
   },
 });
 

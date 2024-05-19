@@ -12,6 +12,23 @@ const experienciaSchema = new mongoose.Schema({
     default: false,
     required: true,
   },
+  certificado: String,
+  idUsuario: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Usuarios",
+  },
+  proyectos: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Proyectos",
+    },
+  ],
+  observaciones: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Observaciones",
+    },
+  ],
 });
 
 const ExperienciaModel = connection.model("Experiencia", experienciaSchema);

@@ -1,24 +1,31 @@
-import Experiencia from "../../models/Experiencias";
+import Proyectos from "../../models/Proyectos";
 
-const getControllerExperiencia = async (
+const getControllerProyectos = async (
   id,
-  empresa,
+  nombre,
   cargo,
+  tipo,
   fechaInicioRangoIni,
   fechaInicioRangoFin,
   fechaFinRangoIni,
   fechaFinRangoFin,
-  trabajando
+  finalizado,
+  obtenerTipos
 ) => {
   try {
     if (id) {
-      const experiencia = await Experiencia.findById(id);
-      return experiencia;
+      const proyecto = await Proyectos.findById(id);
+      return proyecto;
+    }
+    if (obtenerTipos) {
+      const tiposEnum = await Proyectos.schema.path("tipo").enumValues;
+      return tiposEnum;
     }
 
     const whereConditions = {
-      ...(empresa && { empresa: new RegExp(`^${empresa}`, "i") }),
+      ...(nombre && { nombre: new RegExp(`^${nombre}`, "i") }),
       ...(cargo && { cargo: new RegExp(`^${cargo}`, "i") }),
+      ...(tipo && { tipo }),
       ...(fechaInicioRangoIni &&
         fechaInicioRangoFin && {
           fechaInicio: {
@@ -49,18 +56,19 @@ const getControllerExperiencia = async (
         !fechaFinRangoIni && {
           fechaVencimiento: { $lte: fechaFinRangoFin },
         }),
-      ...(trabajando && { trabajando }),
+      ...(finalizado && { finalizado }),
     };
-    const experiencias = await Experiencia.find(
+    const proyectos = await Proyectos.find(
       Object.keys(whereConditions).length > 0 ? whereConditions : {}
     )
+      .populate("idEstudio")
+      .populate("idExperiencia")
       .populate("idUsuario")
-      .populate("proyectos")
       .populate("observaciones");
-    return experiencias;
+    return proyectos;
   } catch (error) {
     return error;
   }
 };
 
-export default getControllerExperiencia;
+export default getControllerProyectos;
