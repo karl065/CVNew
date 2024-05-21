@@ -1,5 +1,5 @@
 import Estudios from "../../models/Estudios";
-import Experiencia from "../../models/Experiencia";
+import Experiencia from "../../models/Experiencias";
 import Observaciones from "../../models/Observaciones";
 import Proyectos from "../../models/Proyectos";
 import Usuarios from "../../models/Usuarios";
