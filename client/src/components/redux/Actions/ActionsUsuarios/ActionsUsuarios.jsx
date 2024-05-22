@@ -20,3 +20,8 @@ export const buscarRoles = createAsyncThunk(
     return data;
   }
 );
+
+export const inicio = createAsyncThunk("usuarios/inicio", async () => {
+  const { data } = await axios.get(`${server.api.baseURL}usuario?rol=Personal`);
+  return data;
+});

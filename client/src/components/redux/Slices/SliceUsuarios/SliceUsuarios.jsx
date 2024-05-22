@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   buscarUsuarios,
   buscarRoles,
+  inicio,
 } from "../../Actions/ActionsUsuarios/ActionsUsuarios";
 
 const usuariosSlice = createSlice({
@@ -9,6 +10,7 @@ const usuariosSlice = createSlice({
   initialState: {
     login: null,
     usuarios: [],
+    personal: [],
     roles: [],
     status: "idle",
     error: null,
@@ -34,6 +36,17 @@ const usuariosSlice = createSlice({
         state.usuarios = action.payload;
       })
       .addCase(buscarUsuarios.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(inicio.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(inicio.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.personal = action.payload;
+      })
+      .addCase(inicio.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })

@@ -12,6 +12,7 @@ const usuarioSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  perfil: String,
   celular: String,
   foto: String,
   linkedIn: String,
